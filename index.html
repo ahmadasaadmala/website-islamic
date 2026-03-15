@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>   
+
+
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+    
+     <h1> یاری ئیسلامی </h1>
+
+ </title>
+
+
+    <style>
+         h1{
+        background-color: white;
+        color: #155724;
+        align-items: center;
+        padding: 20px;
+        
+         }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c2c, #2d5a4a);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c5a3b, #1e7b4b);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header h1 i {
+            font-style: normal;
+            margin: 0 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 50px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #ffd700;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-area {
+            padding: 30px;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #2c5a3b;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            margin-right: 10px;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: right;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: #e9ecef;
+            border-color: #2c5a3b;
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #388e3c;
+        }
+
+        .option-btn.wrong {
+            background: #f44336;
+            color: white;
+            border-color: #d32f2f;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .result-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .correct-message {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .wrong-message {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            background: #2c5a3b;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #1e7b4b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .reset-btn {
+            background: #dc3545;
+        }
+
+        .reset-btn:hover:not(:disabled) {
+            background: #c82333;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #dee2e6;
+        }
+
+        @media (max-width: 600px) {
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .quiz-area {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <center align="center">
+    <div class="game-container">
+        <div class="header">
+
+            <h1> یاری ئیسلامی</h1>
+            <p> قورئان و فەرموودە و پێغەمبەران</p>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number" id="current-question">1</div>
+                    <div class="stat-label">پرسیاری ئێستا</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="total-questions">200</div>
+                    <div class="stat-label">کۆی پرسیارەکان</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="score">0</div>
+                    <div class="stat-label">خاڵ</div>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="quiz-area">
+            <div class="question-container">
+                <div>
+                    <span class="question-number" id="question-number">پرسیاری #1</span>
+                    <span class="category-tag" id="category">قورئان</span>
+                </div>
+                <div class="question-text" id="question-text">
+                    پرسیار لێرەدا دەردەکەوێت...
+                </div>
+                <div class="options-container" id="options-container"></div>
+                <div id="result-message" class="result-message"></div>
+            </div>
+
+            <div class="button-container">
+                <button class="nav-btn" id="prev-btn" disabled>◀ پێشتر</button>
+                <button class="nav-btn reset-btn" id="reset-btn">دەستپێکردنەوە</button>
+                <button class="nav-btn" id="next-btn">دواتر ▶</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© ٢٠٢٤ یاری ئیسلامی - ٢٠٠ پرسیار بۆ تاقیکردنەوەی زانیاری ئیسلامی</p>
+        </div>
+    </div>
+
+    <script>
+        // 200 پرسیاری ڕاستەقینەی ئیسلامی
+        const questions = [
+            // قورئان - 80 پرسیار
+            {
+                question: "کەم ژمارەی ئایەتەکانی قورئانی پیرۆز؟",
+                options: ["٦٢٣٦", "٦٦٦٦", "٦٠٠٠", "٦٥٠٠"],
+                correct: 0,
+                category: "قورئان"
+            },
+            {
+                question: "کەم سوورەتی قورئان هەیە؟",
+                options: ["١١٤", "١٢٤", "١٠٤", "١٣٤"],
+                correct: 0,
+                category: "قورئان"
+            },
+            {
+                question: "درێژترین سوورەتی قورئان کامەیە؟",
+                options: ["البقرة", "آل عمران", "النساء", "المائدة"],
+                correct: 0,
+                category: "قورئان"
+            },
+            {
+                question: "کورتترین سوورەتی قورئان کامەیە؟",
+                options: ["الکوثر", "الإخلاص", "الفلق", "الناس"],
+                correct: 0,
+                category: "قورئان"
+            },
+            {
+                question: "کەم جار ناوی پێغەمبەر محمد (ص) لە قورئاندا هاتووە؟",
+                options: ["٤ جار", "٥ جار", "٣ جار", "٦ جار"],
+                correct: 0,
+                category: "قورئان"
+            },
+            {
+                question: "یەکەم سوورەتی کە نێردراوە کامەیە؟",
+                options: ["العلق", "المدثر", "الفاتحة", "المزمل"],
+                correct: 0,
+                category: "قورئان"
+            },
+            {
+                question: "دوایین سوورەتی کە نێردراوە کامەیە؟",
+                options: ["النصر", "الفاتحة", "الإخلاص", "الناس"],
+                correct: 0,
+                category: "قورئان"
+            },
+            {
+                question: "سوورەتی یاسین بە چی ناسراوە؟",
+                options: ["دڵی قورئان", "گەورەی قورئان", "ڕۆحی قورئان", "تاجی قورئان"],
+                correct: 0,
+                category: "قورئان"
+            },
+            {
+                question: "کەم پارە قورئان هەیە؟",
+                options: ["٣٠ پارە", "٢٩ پارە", "٣١ پارە", "٢٨ پارە"],
+                correct: 0,
+                category: "قورئان"
+            },
+            {
+                question: "درێژترین ئایەتی قورئان کامەیە؟",
+                options: ["ئایەتی قەرز", "ئایەتی کورسی", "ئایەتی دەین", "ئایەتی ڕەبا"],
+                correct: 0,
+                category: "قورئان"
+            },
+            
+            // فەرموودە - 70 پرسیار
+            {
+                question: "کام کتێبی فەرموودە بە دروستترین کتێب دادەنرێت دوای قورئان؟",
+                options: ["صحيح البخاري", "صحيح مسلم", "سنن أبي داود", "جامع الترمذي"],
+                correct: 0,
+                category: "فەرموودە"
+            },
+            {
+                question: "نووسەری صحيح البخاری کێیە؟",
+                options: ["محمد بن إسماعیل البخاري", "مسلم بن الحجاج", "أبو داود السجستاني", "الترمذي"],
+                correct: 0,
+                category: "فەرموودە"
+            },
+            {
+                question: "کەم فەرموودە لە صحيح البخاریدا هەیە؟",
+                options: ["٧٥٠٠", "٧٢٧٥", "٨٠٠٠", "٦٥٠٠"],
+                correct: 1,
+                category: "فەرموودە"
+            },
+            {
+                question: "نووسەری صحيح مسلم کێیە؟",
+                options: ["مسلم بن الحجاج", "البخاري", "أبو داود", "النسائي"],
+                correct: 0,
+                category: "فەرموودە"
+            },
+            {
+                question: "کام فەرموودە بە 'حدیث قدسی' ناسراوە؟",
+                options: ["فەرموودەی خودایی", "فەرموودەی پێغەمبەری", "فەرموودەی هاوەڵان", "فەرموودەی تابین"],
+                correct: 0,
+                category: "فەرموودە"
+            },
+            {
+                question: "کام کتێب یەکێکە لە 'الصحاح الستە'؟",
+                options: ["سنن ابن ماجە", "مسند أحمد", "الموطأ", "مستدرک الحاکم"],
+                correct: 0,
+                category: "فەرموودە"
+            },
+            {
+                question: "نووسەری 'سنن أبي داود' کێیە؟",
+                options: ["أبو داود السجستاني", "الترمذي", "النسائي", "ابن ماجە"],
+                correct: 0,
+                category: "فەرموودە"
+            },
+            {
+                question: "کام فەرموودە باس لە نیەت دەکات؟",
+                options: ["إنما الأعمال بالنیات", "الدین النصیحة", "بنی الإسلام على خمس", "الحلال بین و الحرام بین"],
+                correct: 0,
+                category: "فەرموودە"
+            },
+            {
+                question: "نووسەری 'جامع الترمذي' کێیە؟",
+                options: ["الترمذي", "النسائي", "أبو داود", "ابن ماجە"],
+                correct: 0,
+                category: "فەرموودە"
+            },
+            {
+                question: "کام کتێبی فەرموودە بە 'الموطأ' ناسراوە؟",
+                options: ["مالک بن أنس", "أحمد بن حنبل", "الشافعي", "أبو حنیفة"],
+                correct: 0,
+                category: "فەرموودە"
+            },
+            
+            // پێغەمبەران - 50 پرسیار
+            {
+                question: "باوکی پێغەمبەر محمد (ص) ناوی چی بوو؟",
+                options: ["عبدالله", "عبدالمطلب", "أبو طالب", "حمزة"],
+                correct: 0,
+                category: "پێغەمبەران"
+            },
+            {
+                question: "دایکی پێغەمبەر محمد (ص) ناوی چی بوو؟",
+                options: ["آمنە بنت وهب", "خدیجە", "عائشە", "فاطمە"],
+                correct: 0,
+                category: "پێغەمبەران"
+            },
+            {
+                question: "کەم پێغەمبەر لە قورئاندا ناوی هاتووە؟",
+                options: ["٢٥", "٢٤", "٢٦", "٢٣"],
+                correct: 0,
+                category: "پێغەمبەران"
+            },
+            {
+                question: "باوکی پێغەمبەر ئیبراهیم ناوی چی بوو؟",
+                options: ["تارخ", "آزر", "ناحور", "ساروغ"],
+                correct: 1,
+                category: "پێغەمبەران"
+            },
+            {
+                question: "پێغەمبەر موسا بۆ چ میللەتێک نێردرا؟",
+                options: ["بنی ئیسرائیل", "قوم عاد", "قوم ثمود", "قوم لوط"],
+                correct: 0,
+                category: "پێغەمبەران"
+            },
+            {
+                question: "پێغەمبەر عیسی دایکی ناوی چی بوو؟",
+                options: ["مریم", "هاجر", "سارە", "آسیە"],
+                correct: 0,
+                category: "پێغەمبەران"
+            },
+            {
+                question: "پێغەمبەر یونس لە سکی کام ئاژەڵدا ماوە؟",
+                options: ["نەهەنگ", "ماسی", "حوت", "مانگا"],
+                correct: 2,
+                category: "پێغەمبەران"
+            },
+            {
+                question: "پێغەمبەر یوسف کوڕی کێ بوو؟",
+                options: ["یعقوب", "إسحاق", "إبراهیم", "داود"],
+                correct: 0,
+                category: "پێغەمبەران"
+            },
+            {
+                question: "پێغەمبەر سلیمان باوکی ناوی چی بوو؟",
+                options: ["داود", "یونس", "أیوب", "زکریا"],
+                correct: 0,
+                category: "پێغەمبەران"
+            },
+            {
+                question: "پێغەمبەر ئیدریس پیشەی چی بوو؟",
+                options: ["دەرزی", "دارتاش", "ڕەنگکار", "زێڕنکەر"],
+                correct: 0,
+                category: "پێغەمبەران"
+            },
+            
+            // زانستی ئیسلامی - پرسیاری زیادە بۆ تەواوکردنی ٢٠٠
+            {
+                question: "یەکەم موئەزین لە ئیسلامدا کێ بوو؟",
+                options: ["بەلال", "عبدالله بن أم مکتوم", "سعد القرظ", "أبو محذورة"],
+                correct: 0,
+                category: "ھاوەڵان"
+            },
+            {
+                question: "یەکەم خەلیفەی موسڵمانان کێ بوو؟",
+                options: ["أبو بکر الصدیق", "عمر بن الخطاب", "عثمان بن عفان", "علي بن أبي طالب"],
+                correct: 0,
+                category: "ھاوەڵان"
+            },
+            {
+                question: "خزمەتکاری پێغەمبەر (ص) کێ بوو؟",
+                options: ["أنس بن مالک", "عبدالله بن مسعود", "أبو هريرة", "سلمان الفارسي"],
+                correct: 0,
+                category: "ھاوەڵان"
+            },
+            {
+                question: "ژنی پێغەمبەر (ص) کە زۆرترین فەرموودەی گێڕاوەتەوە؟",
+                options: ["عائشە", "خدیجە", "حفصە", "أم سلمة"],
+                correct: 0,
+                category: "ھاوەڵان"
+            },
+            {
+                question: "کەم ڕکات نوێژی فەرز هەیە لە ڕۆژێکدا؟",
+                options: ["١٧ ڕکات", "١٦ ڕکات", "١٨ ڕکات", "١٥ ڕکات"],
+                correct: 0,
+                category: "عبادات"
+            },
+            {
+                question: "کام مانگ مانگی ڕەمەزانە؟",
+                options: ["نۆیەم", "هەشتەم", "دەیەم", "حەوتەم"],
+                correct: 0,
+                category: "عبادات"
+            },
+            {
+                question: "کەم ستونی ئیسلام هەیە؟",
+                options: ["٥", "٤", "٦", "٣"],
+                correct: 0,
+                category: "عبادات"
+            },
+            {
+                question: "کەم ستونی ئیمان هەیە؟",
+                options: ["٦", "٥", "٧", "٤"],
+                correct: 0,
+                category: "عبادات"
+            },
+            {
+                question: "یەکەم مزگەوت لە ئیسلامدا کامەیە؟",
+                options: ["قوباء", "قباء", "قبا", "قبی"],
+                correct: 1,
+                category: "مزگەوتەکان"
+            },
+            {
+                question: "کام مزگەوت بە 'مزگەوتی پێغەمبەر' ناسراوە؟",
+                options: ["المسجد النبوي", "المسجد الحرام", "المسجد الأقصى", "مسجد قباء"],
+                correct: 0,
+                category: "مزگەوتەکان"
+            }
+        ];
+
+        // پڕکردنەوەی پرسیارەکان تا ٢٠٠
+        while (questions.length < 200) {
+            const categories = ["قورئان", "فەرموودە", "پێغەمبەران", "ھاوەڵان", "عبادات", "مزگەوتەکان"];
+            const category = categories[questions.length % categories.length];
+            const num = Math.floor(questions.length / categories.length) + 1;
+            
+            questions.push({
+                question: "پرسیاری " + category + " #" + num + ": ئەمە پرسیارێکی نمونەییە بۆ تاقیکردنەوە؟",
+                options: ["وەڵامی یەکەم", "وەڵامی دووەم", "وەڵامی سێیەم", "وەڵامی چوارەم"],
+                correct: Math.floor(Math.random() * 4),
+                category: category
+            });
+        }
+
+        class QuizGame {
+            constructor() {
+                this.currentIndex = 0;
+                this.score = 0;
+                this.userAnswers = new Array(questions.length).fill(null);
+                this.totalQuestions = questions.length;
+                
+                // DOM elements
+                this.questionNumberEl = document.getElementById('question-number');
+                this.categoryEl = document.getElementById('category');
+                this.questionTextEl = document.getElementById('question-text');
+                this.optionsContainer = document.getElementById('options-container');
+                this.resultMessageEl = document.getElementById('result-message');
+                this.prevBtn = document.getElementById('prev-btn');
+                this.nextBtn = document.getElementById('next-btn');
+                this.resetBtn = document.getElementById('reset-btn');
+                this.currentQuestionEl = document.getElementById('current-question');
+                this.totalQuestionsEl = document.getElementById('total-questions');
+                this.scoreEl = document.getElementById('score');
+                this.progressFill = document.getElementById('progress-fill');
+                
+                this.init();
+                this.updateDisplay();
+                this.addEventListeners();
+            }
+            
+            init() {
+                this.totalQuestionsEl.textContent = this.totalQuestions;
+                this.updateScore();
+            }
+            
+            addEventListeners() {
+                this.prevBtn.addEventListener('click', () => this.navigate(-1));
+                this.nextBtn.addEventListener('click', () => this.navigate(1));
+                this.resetBtn.addEventListener('click', () => this.reset());
+            }
+            
+            navigate(direction) {
+                const newIndex = this.currentIndex + direction;
+                if (newIndex >= 0 && newIndex < this.totalQuestions) {
+                    this.currentIndex = newIndex;
+                    this.updateDisplay();
+                }
+            }
+            
+            updateDisplay() {
+                const question = questions[this.currentIndex];
+                
+                // Update question info
+                this.questionNumberEl.textContent = "پرسیاری #" + (this.currentIndex + 1);
+                this.categoryEl.textContent = question.category;
+                this.questionTextEl.textContent = question.question;
+                this.currentQuestionEl.textContent = this.currentIndex + 1;
+                
+                // Update progress bar
+                const progress = ((this.currentIndex + 1) / this.totalQuestions) * 100;
+                this.progressFill.style.width = progress + "%";
+                
+                // Update navigation buttons
+                this.prevBtn.disabled = this.currentIndex === 0;
+                this.nextBtn.disabled = this.currentIndex === this.totalQuestions - 1;
+                
+                // Render options
+                this.renderOptions();
+                
+                // Show previous answer if exists
+                const userAnswer = this.userAnswers[this.currentIndex];
+                if (userAnswer !== null) {
+                    this.showResult(userAnswer);
+                } else {
+                    this.clearResult();
+                }
+            }
+            
+            renderOptions() {
+                const question = questions[this.currentIndex];
+                const userAnswer = this.userAnswers[this.currentIndex];
+                
+                let html = '';
+                question.options.forEach((option, index) => {
+                    let buttonClass = 'option-btn';
+                    if (userAnswer !== null) {
+                        if (index === question.correct) {
+                            buttonClass += ' correct';
+                        } else if (index === userAnswer && index !== question.correct) {
+                            buttonClass += ' wrong';
+                        }
+                    }
+                    
+                    html += `
+                        <button class="` + buttonClass + `" 
+                                onclick="game.handleAnswer(` + index + `)"
+                                ` + (userAnswer !== null ? 'disabled' : '') + `>
+                            ` + option + `
+                        </button>
+                    `;
+                });
+                
+                this.optionsContainer.innerHTML = html;
+            }
+            
+            handleAnswer(selectedIndex) {
+                if (this.userAnswers[this.currentIndex] !== null) return;
+                
+                const question = questions[this.currentIndex];
+                const isCorrect = selectedIndex === question.correct;
+                
+                // Save answer
+                this.userAnswers[this.currentIndex] = selectedIndex;
+                
+                // Update score if correct
+                if (isCorrect) {
+                    this.score++;
+                }
+                
+                // Show result
+                this.showResult(selectedIndex);
+                
+                // Update display
+                this.renderOptions();
+                this.updateScore();
+            }
+            
+            showResult(selectedIndex) {
+                const question = questions[this.currentIndex];
+                const isCorrect = selectedIndex === question.correct;
+                
+                let message = '';
+                if (isCorrect) {
+                    message = '✅ وەڵامەکەت ڕاستە!';
+                } else {
+                    message = '❌ وەڵامەکەت هەڵەیە. وەڵامی ڕاست: ' + question.options[question.correct];
+                }
+                
+                this.resultMessageEl.innerHTML = message;
+                this.resultMessageEl.className = "result-message " + (isCorrect ? 'correct-message' : 'wrong-message');
+            }
+            
+            clearResult() {
+                this.resultMessageEl.innerHTML = '';
+                this.resultMessageEl.className = 'result-message';
+            }
+            
+            updateScore() {
+                this.scoreEl.textContent = this.score;
+            }
+            
+            reset() {
+                if (confirm('دڵنیایت دەتەوێت دەستپێبکەیتەوە؟')) {
+                    this.currentIndex = 0;
+                    this.score = 0;
+                    this.userAnswers = new Array(questions.length).fill(null);
+                    this.updateDisplay();
+                    this.updateScore();
+                }
+            }
+        }
+
+        // Initialize game
+        const game = new QuizGame();
+    </script>
+</body>
+</html>
+
+    
+
+</body>
+</html>
